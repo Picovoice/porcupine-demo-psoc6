@@ -92,7 +92,7 @@ Various CLI tools include a `-h` option that prints help information to the term
 For the single wake word demo, the default wake word is `Porcupine`; and below are the LED colors associated with supported wake words for the multiple wake words demo:
 
 - ![#00ff00](https://via.placeholder.com/15/00ff00/000000?text=+) `Porcupine`
-- ![#00ffff](https://via.placeholder.com/15/ff8000/000000?text=+) `Picovoice`
+- ![#00ffff](https://via.placeholder.com/15/00ffff/000000?text=+) `Picovoice`
 - ![#ff0000](https://via.placeholder.com/15/ff0000/000000?text=+) `Bumblebee`
 - ![#0000ff](https://via.placeholder.com/15/0000ff/000000?text=+) `Alexa`
 
