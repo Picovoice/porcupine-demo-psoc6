@@ -53,6 +53,7 @@ static const char *KEYWORDS_NAME[] = {
 };
 
 static void error_handler(void) {
+    cy_rgb_led_on(CY_RGB_LED_COLOR_RED, CY_RGB_LED_MAX_BRIGHTNESS);
     while(true);
 }
 
@@ -77,13 +78,13 @@ int main(void) {
 
     status = pv_audio_rec_init();
     if (status != PV_STATUS_SUCCESS) {
-        printf("Audio init failed with '%s'", pv_status_to_string(status));
+        printf("Audio init failed with '%s'\r\n", pv_status_to_string(status));
         error_handler();
     }
 
     status = pv_audio_rec_start();
     if (status != PV_STATUS_SUCCESS) {
-        printf("Recording audio failed with '%s'", pv_status_to_string(status));
+        printf("Recording audio failed with '%s'\r\n", pv_status_to_string(status));
         error_handler();
     }
 
@@ -99,7 +100,7 @@ int main(void) {
             &handle);
 
     if (status != PV_STATUS_SUCCESS) {
-        printf("Porcupine init failed with '%s'", pv_status_to_string(status));
+        printf("Porcupine init failed with '%s'\r\n", pv_status_to_string(status));
         error_handler();
     }
 
@@ -109,11 +110,11 @@ int main(void) {
             int32_t keyword_index = -1;
             const pv_status_t status = pv_porcupine_process(handle, buffer, &keyword_index);
             if (status != PV_STATUS_SUCCESS) {
-                printf("Porcupine process failed with '%s'", pv_status_to_string(status));
+                printf("Porcupine process failed with '%s'\r\n", pv_status_to_string(status));
                 error_handler();
             }
             if (keyword_index >= 0) {
-                printf("[wake word] %s\n", KEYWORDS_NAME[keyword_index]);
+                printf("[wake word] %s\r\n", KEYWORDS_NAME[keyword_index]);
 
                 switch (keyword_index) {
                     case 0:
