@@ -108,10 +108,5 @@ The model is now being trained. You will be able to download it within a few hou
 ## Import the Custom Wake Word
 
 1. Download your custom voice model(s) from [Picovoice Console](https://console.picovoice.ai/).
-2. Decompress the zip file. The model file is `.ppn` for Porcupine wake word.
-3. Use [binary_to_c_array.py](./scripts/binary_to_c_array.py) to convert your binary models to C array format  utilizing the following command:
-```bash
-python3 binary_to_c_array.py --binary_file_path INPUT_MODEL --array_file_path OUTPUT_FILE.TXT
-```
-1. Copy the content of `output_c_array.txt` and update the `DEFAULT_KEYWORD_ARRAY` value in [/include/pv_params.h](./include/pv_params.h)
-
+2. Decompress the zip file. The model for Porcupine wake word is located in two files: A binary `.ppn` file, and as a `.h` header file containing a `C` array version of the binary model.
+3. Copy the contents of the `KEYWORD_ARRAY` array inside the `.h` header file and update the `DEFAULT_KEYWORD_ARRAY` value in [/include/pv_params.h](./include/pv_params.h)
