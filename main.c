@@ -17,13 +17,17 @@
 #include "cybsp.h"
 
 #include "pv_audio_rec.h"
-#include "pv_params.h"
+#include "pv_keywords.h"
 #include "pv_porcupine.h"
 #include "pv_psoc6.h"
 
 #define MEMORY_BUFFER_SIZE (70 * 1024)
 
+static const char* ACCESS_KEY = ... // AccessKey string obtained from Picovoice Console (https://picovoice.ai/console/)
+
 static int8_t memory_buffer[MEMORY_BUFFER_SIZE] __attribute__((aligned(16)));
+
+#ifdef __PV_LANGUAGE_ENGLISH__
 
 static const int32_t NUM_KEYWORDS = 4;
 static const int32_t KEYWORD_MODEL_SIZES[] = {
@@ -51,6 +55,16 @@ static const char *KEYWORDS_NAME[] = {
         "Bumblebee",
         "Alexa"
 };
+
+#else
+
+static const int32_t NUM_KEYWORDS = 1;
+static const int32_t KEYWORD_MODEL_SIZES[] = { sizeof(DEFAULT_KEYWORD_ARRAY) };
+static const void *KEYWORD_MODELS[] = { DEFAULT_KEYWORD_ARRAY };
+static const float SENSITIVITIES[] = { 0.75f };
+static const char *KEYWORDS_NAME[] = { "" };
+
+#endif
 
 static void error_handler(void) {
     cy_rgb_led_on(CY_RGB_LED_COLOR_RED, CY_RGB_LED_MAX_BRIGHTNESS);
@@ -91,6 +105,7 @@ int main(void) {
     pv_porcupine_t *handle = NULL;
 
     status = pv_porcupine_init(
+            ACCESS_KEY,
             MEMORY_BUFFER_SIZE,
             memory_buffer,
             NUM_KEYWORDS,
